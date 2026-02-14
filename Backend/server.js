@@ -16,32 +16,23 @@ const allowedOrigins = [
   "https://cognix-frontend.onrender.com",
 ];
 
-app.use(
-  cors({
-    origin: function (origin, callback) {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    credentials: true,
-  }),
-);
+app.use(cors());
 
 app.use("/api/auth", authRoutes);
 app.use("/api", chatRoutes);
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-  connectDb();
-});
-
 const connectDb = async () => {
   try {
     await mongoose.connect(process.env.MONGODB_URL);
-    console.log("connected with Db");
+    console.log("Connected with DB");
   } catch (err) {
-    console.log("Failed", err);
+    console.log("DB Connection Failed", err);
+    process.exit(1); // Important in production
   }
 };
+
+connectDb();
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
