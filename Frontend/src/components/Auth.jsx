@@ -60,8 +60,8 @@ const Auth = () => {
     setLoading(true);
 
     const url = isLogin
-      ? "http://localhost:8000/api/auth/login"
-      : "http://localhost:8000/api/auth/signup";
+      ? `${import.meta.env.VITE_BACKEND_URL}/api/auth/login`
+      : `${import.meta.env.VITE_BACKEND_URL}/api/auth/signup`;
 
     const body = isLogin ? { email, password } : { name, email, password };
 
@@ -102,11 +102,14 @@ const Auth = () => {
 
         // Auto-login with the credentials
         try {
-          const loginRes = await fetch("http://localhost:8000/api/auth/login", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email, password }),
-          });
+          const loginRes = await fetch(
+            `${import.meta.env.VITE_BACKEND_URL}/api/auth/login`,
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ email, password }),
+            },
+          );
 
           const loginData = await loginRes.json();
 

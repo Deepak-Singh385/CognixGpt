@@ -6,7 +6,7 @@ import { Send } from "lucide-react";
 import { CognixContext } from "../Context/Cognix.jsx";
 import { useContext, useEffect, useState } from "react";
 import { ScaleLoader } from "react-spinners";
-import { jwtDecode } from "jwt-decode";
+import jwtDecode from "jwt-decode";
 import { X } from "lucide-react";
 
 const ChatWindow = () => {
@@ -105,7 +105,10 @@ const ChatWindow = () => {
     };
 
     try {
-      const response = await fetch("http://localhost:8000/api/chat", options);
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/api/thread`,
+        options,
+      );
 
       // Check if response is ok
       if (!response.ok) {
