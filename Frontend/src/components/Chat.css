@@ -1,0 +1,274 @@
+/* Chat Container */
+.chats {
+  flex: 1;
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Welcome Message */
+.chats > h1 {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 600;
+  background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 50%, #1e40af 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: auto;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: -0.5px;
+}
+
+/* User Message Container */
+.userDiv {
+  display: flex;
+  justify-content: flex-end;
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Cognix Message Container */
+.cognixDiv {
+  text-align: left;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  animation: slideIn 0.3s ease;
+}
+
+/* User Message Styling */
+.userMessage {
+  background: linear-gradient(
+    135deg,
+    rgba(59, 130, 246, 0.2) 0%,
+    rgba(30, 58, 138, 0.15) 100%
+  );
+  border: 1px solid rgba(59, 130, 246, 0.4);
+  padding: 1rem 1.25rem;
+  border-radius: 16px;
+  margin-left: auto;
+  max-width: 600px;
+  width: fit-content;
+  color: #e5e5e5;
+  word-wrap: break-word;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
+  font-weight: 400;
+}
+
+/* Code Block Styling */
+.cognixDiv pre {
+  background: linear-gradient(
+    135deg,
+    rgba(15, 23, 42, 0.8) 0%,
+    rgba(30, 41, 59, 0.8) 100%
+  );
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  padding: 1.25rem;
+  border-radius: 12px;
+  overflow-x: auto;
+  margin: 1rem 0;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(5px);
+}
+
+.cognixDiv code {
+  color: #e5e5e5;
+  font-family: "Fira Code", "Courier New", monospace;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+/* Inline Code */
+.cognixDiv :not(pre) > code {
+  background: rgba(59, 130, 246, 0.2);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  color: #60a5fa;
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+  font-family: "Fira Code", "Courier New", monospace;
+  font-size: 0.85rem;
+}
+
+/* Highlight.js Theme Overrides */
+.hljs {
+  background: linear-gradient(
+    135deg,
+    rgba(15, 23, 42, 0.8) 0%,
+    rgba(30, 41, 59, 0.8) 100%
+  ) !important;
+  border-radius: 10px;
+  color: #e5e5e5;
+}
+
+.hljs-number {
+  color: #fca5a5;
+}
+
+.hljs-string {
+  color: #86efac;
+}
+
+.hljs-literal {
+  color: #fbbf24;
+}
+
+.hljs-attr {
+  color: #60a5fa;
+}
+
+.hljs-title {
+  color: #93c5fd;
+}
+
+.hljs-keyword {
+  color: #c4b5fd;
+}
+
+.hljs-function {
+  color: #a5f3fc;
+}
+
+/* Lists Styling */
+.cognixDiv ul,
+.cognixDiv ol {
+  margin: 1rem 0 1rem 1.5rem;
+  color: #d1d5db;
+}
+
+.cognixDiv li {
+  margin: 0.5rem 0;
+  line-height: 1.6;
+}
+
+.cognixDiv li::marker {
+  color: #3b82f6;
+}
+
+/* Blockquote Styling */
+.cognixDiv blockquote {
+  border-left: 4px solid #3b82f6;
+  padding-left: 1rem;
+  margin: 1rem 0;
+  color: #9ca3af;
+  font-style: italic;
+  background: rgba(59, 130, 246, 0.08);
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+/* Headings */
+.cognixDiv h1,
+.cognixDiv h2,
+.cognixDiv h3,
+.cognixDiv h4,
+.cognixDiv h5,
+.cognixDiv h6 {
+  color: #ffffff;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.cognixDiv h1 {
+  font-size: 1.75rem;
+}
+
+.cognixDiv h2 {
+  font-size: 1.5rem;
+}
+
+.cognixDiv h3 {
+  font-size: 1.25rem;
+}
+
+.cognixDiv h4 {
+  font-size: 1.1rem;
+}
+
+/* Links */
+.cognixDiv a {
+  color: #60a5fa;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border-bottom: 1px solid rgba(96, 165, 250, 0.5);
+}
+
+.cognixDiv a:hover {
+  color: #93c5fd;
+  border-bottom-color: #93c5fd;
+}
+
+/* Horizontal Rule */
+.cognixDiv hr {
+  border: none;
+  border-top: 1px solid rgba(59, 130, 246, 0.3);
+  margin: 1.5rem 0;
+}
+
+/* Tables */
+.cognixDiv table {
+  border-collapse: collapse;
+  margin: 1rem 0;
+  width: 100%;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+.cognixDiv th {
+  background: rgba(59, 130, 246, 0.2);
+  padding: 0.75rem;
+  text-align: left;
+  color: #60a5fa;
+  border-bottom: 2px solid rgba(59, 130, 246, 0.4);
+}
+
+.cognixDiv td {
+  padding: 0.75rem;
+  border-bottom: 1px solid rgba(59, 130, 246, 0.15);
+  color: #d1d5db;
+}
+
+.cognixDiv tr:hover {
+  background: rgba(59, 130, 246, 0.08);
+}
+
+/* Scrollbar for chat */
+.chats::-webkit-scrollbar {
+  width: 8px;
+}
+
+.chats::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.chats::-webkit-scrollbar-thumb {
+  background: rgba(59, 130, 246, 0.4);
+  border-radius: 10px;
+}
+
+.chats::-webkit-scrollbar-thumb:hover {
+  background: rgba(59, 130, 246, 0.6);
+}
+
+#newChatTitle {
+  margin: auto;
+  margin-top: 10rem;
+}

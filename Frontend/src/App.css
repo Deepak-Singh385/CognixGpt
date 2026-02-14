@@ -1,0 +1,55 @@
+* {
+  color: #ececec;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
+    sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(-45deg, #0f172a, #1e293b, #0c1426, #111827);
+  min-height: 100vh;
+}
+
+.app {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  background: linear-gradient(-45deg, #0f172a, #1e293b, #0c1426, #111827);
+  position: relative;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #3b82f6, #1e40af);
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #60a5fa, #1e40af);
+  box-shadow: 0 0 8px rgba(59, 130, 246, 0.4);
+}
