@@ -20,14 +20,11 @@ const Sidebar = () => {
 
   const getAllThreads = async () => {
     try {
-      const respones = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/api/thread`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+      const respones = await fetch("http://localhost:8000/api/thread", {
+        headers: {
+          Authorization: `Bearer ${token}`,
         },
-      );
+      });
       const res = await respones.json();
       const filterData = res.map((thread) => {
         return { threadId: thread._id, title: thread.title };
@@ -52,7 +49,7 @@ const Sidebar = () => {
     serCurrThread(newThreadId);
     try {
       const response = await fetch(
-        fetch(`${import.meta.env.VITE_BACKEND_URL}/api/thread`),
+        `http://localhost:8000/api/thread/${newThreadId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -74,14 +71,14 @@ const Sidebar = () => {
   const deleteThread = async (threadId) => {
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/api/thread/${newThreadId}`,
+        `http://localhost:8000/api/thread/${threadId}`,
         {
+          method: "DELETE",
           headers: {
             Authorization: `Bearer ${token}`,
           },
         },
       );
-
       const res = await response.json();
       setAllThreads((prev) =>
         prev.filter((thread) => thread.threadId !== threadId),

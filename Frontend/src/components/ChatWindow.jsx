@@ -105,10 +105,7 @@ const ChatWindow = () => {
     };
 
     try {
-      const response = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/api/thread`,
-        options,
-      );
+      const response = await fetch("http://localhost:8000/api/chat", options);
 
       // Check if response is ok
       if (!response.ok) {
