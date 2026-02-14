@@ -6,7 +6,7 @@ import { Send } from "lucide-react";
 import { CognixContext } from "../Context/Cognix.jsx";
 import { useContext, useEffect, useState } from "react";
 import { ScaleLoader } from "react-spinners";
-import jwtDecode from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 import { X } from "lucide-react";
 
 const ChatWindow = () => {
