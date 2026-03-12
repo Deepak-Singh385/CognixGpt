@@ -1,8 +1,7 @@
 import "./Sidebar.css";
-import { SquarePen } from "lucide-react";
+import { SquarePen, Trash2 } from "lucide-react";
 import { CognixContext } from "../Context/Cognix.jsx";
-import { useContext, useEffect } from "react";
-import { Trash2 } from "lucide-react";
+import { useContext, useEffect, useState } from "react";
 
 const Sidebar = () => {
   const {
@@ -17,6 +16,11 @@ const Sidebar = () => {
     token,
     setToken,
   } = useContext(CognixContext);
+
+  const [deleteModal, setDeleteModal] = useState({
+    open: false,
+    threadId: null,
+  });
 
   const getAllThreads = async () => {
     try {
@@ -34,12 +38,13 @@ const Sidebar = () => {
       console.log(err);
     }
   };
+
   useEffect(() => {
     if (token) getAllThreads();
   }, [token]);
 
   const createNewThread = () => {
-    serCurrThread(null); // just reset
+    serCurrThread(null);
     setPrevChats([]);
     setNewChat(true);
     setPrompt("");
@@ -79,7 +84,7 @@ const Sidebar = () => {
           },
         },
       );
-      const res = await response.json();
+      await response.json();
       setAllThreads((prev) =>
         prev.filter((thread) => thread.threadId !== threadId),
       );
@@ -91,6 +96,20 @@ const Sidebar = () => {
     }
   };
 
+  const handleDeleteClick = (e, threadId) => {
+    e.stopPropagation();
+    setDeleteModal({ open: true, threadId });
+  };
+
+  const confirmDelete = () => {
+    deleteThread(deleteModal.threadId);
+    setDeleteModal({ open: false, threadId: null });
+  };
+
+  const cancelDelete = () => {
+    setDeleteModal({ open: false, threadId: null });
+  };
+
   return (
     <section className="sidebar">
       {/* TOP */}
@@ -100,7 +119,6 @@ const Sidebar = () => {
           src="/src/assets/CognixLogo.jpg"
           alt="Cognix Logo"
         />
-
         <button onClick={createNewThread} className="sidebarBtn">
           <SquarePen size={18} strokeWidth={1.75} />
           <span>New Chat</span>
@@ -110,13 +128,10 @@ const Sidebar = () => {
       {/* MIDDLE */}
       <ul className="sidebar-history">
         {allThreads.map((thread, idx) => (
-          <li key={idx} onClick={(e) => changeThread(thread.threadId)}>
-            <span> {thread.title}</span>
+          <li key={idx} onClick={() => changeThread(thread.threadId)}>
+            <span>{thread.title}</span>
             <Trash2
-              onClick={(e) => {
-                e.stopPropagation();
-                deleteThread(thread.threadId);
-              }}
+              onClick={(e) => handleDeleteClick(e, thread.threadId)}
               className="trash"
               color="#e14747"
               strokeWidth={2.25}
@@ -129,6 +144,30 @@ const Sidebar = () => {
       <div className="sign">
         <p>@CognixGpt</p>
       </div>
+
+      {/* DELETE CONFIRMATION MODAL */}
+      {deleteModal.open && (
+        <div className="modal-overlay" onClick={cancelDelete}>
+          <div className="modal-box" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-icon">
+              <Trash2 size={20} color="#e14747" strokeWidth={2.25} />
+            </div>
+            <p className="modal-title">Delete this thread?</p>
+            <p className="modal-desc">
+              This will permanently remove the thread from your history. This
+              action cannot be undone.
+            </p>
+            <div className="modal-actions">
+              <button onClick={cancelDelete} className="modal-cancel">
+                Cancel
+              </button>
+              <button onClick={confirmDelete} className="modal-delete">
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 };
