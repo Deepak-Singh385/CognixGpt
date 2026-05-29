@@ -8,7 +8,8 @@ import { useContext, useEffect, useState } from "react";
 import { ScaleLoader } from "react-spinners";
 import { jwtDecode } from "jwt-decode";
 import { X } from "lucide-react";
-
+import { Mic } from "lucide-react";
+import useSpeechRecognition from "../hooks/SpeechRecognition.jsx";
 const ChatWindow = () => {
   const {
     prompt,
@@ -28,7 +29,15 @@ const ChatWindow = () => {
   const [userEmail, setUserEmail] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [showLoginAlert, setShowLoginAlert] = useState(false);
+  const { transcript, isListening, startListening } = useSpeechRecognition(
+    (voiceText) => {
+      setPrompt(voiceText);
 
+      setTimeout(() => {
+        getReplyWithVoice(voiceText);
+      }, 500);
+    },
+  );
   useEffect(() => {
     if (token) {
       try {
@@ -86,6 +95,64 @@ const ChatWindow = () => {
       return;
     }
 
+    const getReplyWithVoice = async (voicePrompt) => {
+      if (!voicePrompt.trim()) return;
+
+      const userMessage = {
+        role: "user",
+        content: voicePrompt,
+      };
+
+      setPrevChats((prev) => [...prev, userMessage]);
+
+      setNewChat(false);
+      setLoader(true);
+
+      const options = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          message: voicePrompt,
+          threadId: currThread,
+        }),
+      };
+
+      try {
+        const response = await fetch("http://localhost:8000/api/chat", options);
+
+        if (!response.ok) {
+          throw new Error("Voice request failed");
+        }
+
+        const res = await response.json();
+
+        if (!currThread && res.threadId) {
+          serCurrThread(res.threadId);
+        }
+
+        const assistantMessage = {
+          role: "assistant",
+          content: res.reply || "No response received",
+        };
+
+        setPrevChats((prev) => [...prev, assistantMessage]);
+      } catch (err) {
+        console.error("Voice chat error:", err);
+
+        const errorMessage = {
+          role: "assistant",
+          content: "⚠️ Voice request failed.",
+        };
+
+        setPrevChats((prev) => [...prev, errorMessage]);
+      } finally {
+        setLoader(false);
+        setPrompt("");
+      }
+    };
     const userMessage = { role: "user", content: prompt };
 
     setPrevChats((prev) => [...prev, userMessage]);
@@ -204,7 +271,13 @@ const ChatWindow = () => {
         <div className="inputBox">
           <input
             type="text"
-            placeholder={token ? "Ask Anything" : "Please login to ask..."}
+            placeholder={
+              isListening
+                ? "Listening..."
+                : token
+                  ? "Ask Anything"
+                  : "Please login to ask..."
+            }
             value={prompt}
             onChange={(e) => {
               setPrompt(e.target.value);
@@ -219,6 +292,13 @@ const ChatWindow = () => {
             className={!token ? "inputDisabled" : ""}
             aria-label="Chat input"
           />
+          <div
+            className={`micButton ${isListening ? "listening" : ""}`}
+            onClick={startListening}
+            title="Start voice input"
+          >
+            <Mic />
+          </div>
           <div
             id="submit"
             onClick={getReply}
@@ -238,6 +318,7 @@ const ChatWindow = () => {
             <Send />
           </div>
         </div>
+
         <p className="info">
           Cognix can make mistakes. Check important info. See
           <span onClick={() => setShowModal(true)} role="button" tabIndex={0}>
