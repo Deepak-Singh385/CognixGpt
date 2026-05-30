@@ -18,3 +18,20 @@ Authentication: JWT, bcrypt
 AI Integration: OpenAI API
 Version Control: Git & GitHub
 
+## Application Preview
+
+### User Login
+
+![Login Page](Login_Page.png)
+
+### User Registration
+
+![Signup Page](Signup_Page.png)
+
+### AI Chat Interface (Voice Commands Supported)
+
+![AI Chat Interface](Chat_Interface-2.png)
+
+### Saved Chat History
+
+![Chat History](Chat-History.png)
