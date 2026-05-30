@@ -21,14 +21,14 @@ Version Control: Git & GitHub
 ## Screenshots:
 
 ### SignUp/Login Page
-<img width="722" height="1056" alt="Signup_Page" src="https://github.com/user-attachments/assets/9bc3513b-ef04-40a7-9f6c-5cfa51e821da" />
+<img width="600" height="600" alt="Signup_Page" src="https://github.com/user-attachments/assets/9bc3513b-ef04-40a7-9f6c-5cfa51e821da" />
 <img width="747" height="941" alt="Login_Page" src="https://github.com/user-attachments/assets/e7638269-2cd9-469e-85f1-207a5343cbd0" />
 
 ### AI Chat Interface
-<img width="1114" height="563" alt="Chat_Interface-2" src="https://github.com/user-attachments/assets/553b077d-9193-48e0-ba04-4b2084bd993f" />
+<img width="800" height="400" alt="Chat_Interface-2" src="https://github.com/user-attachments/assets/553b077d-9193-48e0-ba04-4b2084bd993f" />
 
 ### Voice Command Feature
-<img width="905" height="71" alt="image" src="https://github.com/user-attachments/assets/3e3696b2-6630-428d-9f49-fc086b688b10" />
+<img width="600" height="71" alt="image" src="https://github.com/user-attachments/assets/3e3696b2-6630-428d-9f49-fc086b688b10" />
 
 ### Chat History
 <img width="191" height="560" alt="image" src="https://github.com/user-attachments/assets/e4aaf4da-f78a-4e09-a600-55ba895113a7" />
